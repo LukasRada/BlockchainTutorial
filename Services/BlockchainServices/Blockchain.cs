@@ -73,14 +73,24 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 
 		public int GetProofOfWork(int lastProof)
 		{
-			int proof = 0;
+			int[] workload = Enumerable.Range(1, 8).Select(i => Int32.MaxValue / 8 / i).ToArray();
 
-			while (!proofValidator.IsProofValid(lastProof, proof))
+			Task<int>[] workTasks = workload.Select(work => Task.Run(() =>
 			{
-				proof += 1;
-			}
+				int proof = work;
+				while (!proofValidator.IsProofValid(lastProof, proof))
+				{
+					proof += 1;
+				}
+				return proof;
 
-			return proof;
+			})).ToArray();
+			
+			int taskIndex = Task.WaitAny(workTasks);
+
+			int result = workTasks[taskIndex].Result;
+
+			return result;
 		}
 
 		public bool TryResolveConflicts(List<IBlockchain> neighborChains)

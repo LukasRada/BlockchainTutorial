@@ -14,7 +14,7 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 		/// <summary>
 		/// Simulates difficulty.
 		/// </summary>
-		private const int DifficultyLevel = 2; // diff level higher than 2 can lead to OverFlowMemoryException
+		private const int DifficultyLevel = 3;
 
 		private readonly IHashCalculator hashCalculator;
 
