@@ -11,6 +11,11 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 	[Service]
 	public class ProofValidator : IProofValidator
 	{
+		/// <summary>
+		/// Simulates difficulty.
+		/// </summary>
+		private const int DifficultyLevel = 2; // diff level higher than 2 can lead to OverFlowMemoryException
+
 		private readonly IHashCalculator hashCalculator;
 
 		public ProofValidator(IHashCalculator hashCalculator)
@@ -22,7 +27,7 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 		{
 			byte[] guessHash = hashCalculator.CalculateProofHash(lastProof.ToString(), proof.ToString());
 
-			return guessHash.Take(3).All(byteItem => byteItem == 0x00);
+			return guessHash.Take(DifficultyLevel).All(byteItem => byteItem == 0x00);
 		}
 	}
 }

@@ -40,7 +40,7 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 			Contract.Requires<ArgumentNullException>(!String.IsNullOrEmpty(proof));
 
 			byte[] guess = Encoding.UTF8.GetBytes($"{lastProof}{proof}");
-			byte[] guessHash = hashFactory().ComputeHash(guess);
+			byte[] guessHash = hashFactory().ComputeHash(guess); // can lead to overflow exception
 
 			return guessHash;
 		}

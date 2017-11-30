@@ -20,11 +20,11 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 			this.proofValidator = proofValidator;
 		}
 
-		public bool IsBlockchainValid(List<Block> chain)
+		public bool IsBlockchainValid(Block[] chain)
 		{
 			Block lastBlock = chain.LastOrDefault();
 
-			List<Block> chainWithoutGenesisBlock = chain.Skip(1).ToList();
+			Block[] chainWithoutGenesisBlock = chain.Skip(1).ToArray();
 
 			bool hasMatchByHash = chainWithoutGenesisBlock.All(block => block.PreviousHash == hashCalculator.CalculateBlockHash(lastBlock));
 

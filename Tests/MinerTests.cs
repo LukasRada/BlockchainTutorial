@@ -7,12 +7,11 @@ using Rada.BlockchainTurorial.Model;
 namespace Rada.BlockchainTurorial.Tests
 {
 	[TestClass]
-	public class BlockchainTests : TestBase
+	public class MinerTests : TestBase
 	{
 		[TestMethod]
-		public void Blockchain_Initialize_Mining()
+		public void Miner_Mine_TwoBlocks()
 		{
-			IBlockchain blockchain = Container.Resolve<IBlockchain>();
 			IMiner miner = Container.Resolve<IMiner>();
 
 			Block blockOne = miner.Mine("FAKE_ADDRESS");

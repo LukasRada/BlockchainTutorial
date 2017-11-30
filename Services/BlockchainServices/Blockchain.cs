@@ -11,7 +11,7 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 	[Service(Lifetime = Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton)]
 	public class Blockchain : IBlockchain
 	{
-		public const int MiningReward = 100000000;
+		private const int MiningReward = 100000000;
 
 		private readonly List<Block> chain = new List<Block>();
 		private readonly List<Transaction> pendingTransaction = new List<Transaction>();
@@ -30,10 +30,12 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 			
 			if (chain.Count == 0)
 			{
-				Block firstBlock = blockCreator.CreateBlock(0, new List<Transaction>(), default(int), null);
+				Block firstBlock = blockCreator.CreateBlock(0, new List<Transaction>(), 0, null);
 				chain.Add(firstBlock);
 			}
 		}
+
+		public Block[] Chain => chain.ToArray();
 
 		public void AddTransaction(Transaction transaction)
 		{
@@ -81,20 +83,20 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 			return proof;
 		}
 
-		public bool ResolveConflicts(List<List<Block>> neighborChains)
+		public bool TryResolveConflicts(List<IBlockchain> neighborChains)
 		{
 			List<Block> newChain = null;
 			int maxLength = chain.Count;
 
 			for (int i = 0; i < neighborChains.Count; i++)
 			{
-				List<Block> neighborChain = neighborChains[i];
-				int length = neighborChain.Count;
+				Block[] neighborChain = neighborChains[i].Chain;
+				int length = neighborChain.Length;
 
-				if ((neighborChain.Count > maxLength) && blockchainValidator.IsBlockchainValid(neighborChain))
+				if ((neighborChain.Length > maxLength) && blockchainValidator.IsBlockchainValid(neighborChain))
 				{
 					maxLength = length;
-					newChain = neighborChain;
+					newChain = new List<Block>(neighborChain);
 				}
 			}
 
