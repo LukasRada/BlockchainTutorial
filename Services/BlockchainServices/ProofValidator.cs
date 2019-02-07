@@ -14,7 +14,7 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 		/// <summary>
 		/// Simulates difficulty.
 		/// </summary>
-		private const int DifficultyLevel = 3;
+		private const int DifficultyLevel = 2;
 
 		private readonly IHashCalculator hashCalculator;
 

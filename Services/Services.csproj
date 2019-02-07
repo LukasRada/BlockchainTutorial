@@ -70,6 +70,8 @@
     <Compile Include="BlockchainServices\ITransactionCreator.cs" />
     <Compile Include="BlockchainServices\ProofValidator.cs" />
     <Compile Include="Infrastructure\ApplicationTimeService.cs" />
+    <Compile Include="Infrastructure\BlockchainFileWriter.cs" />
+    <Compile Include="Infrastructure\IBlockchainFileWriter.cs" />
     <Compile Include="Mining\IMiner.cs" />
     <Compile Include="Mining\Miner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

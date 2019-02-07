@@ -14,13 +14,11 @@ namespace Rada.BlockchainTurorial.Services.Mining
 	{
 		private readonly IBlockchain blockChain;
 		private readonly ITransactionCreator transactionCreator;
-		private readonly IBlockCreator blockCreator;
 
-		public Miner(IBlockchain blockChain, ITransactionCreator transactionCreator, IBlockCreator blockCreator)
+		public Miner(IBlockchain blockChain, ITransactionCreator transactionCreator)
 		{
 			this.blockChain = blockChain;
 			this.transactionCreator = transactionCreator;
-			this.blockCreator = blockCreator;
 		}
 
 		public Block Mine(string receiverAddress)

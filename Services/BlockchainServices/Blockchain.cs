@@ -45,9 +45,8 @@ namespace Rada.BlockchainTurorial.Services.BlockchainServices
 		public Block CreateBlock(int currentProof)
 		{
 			Block lastBlock = GetLastBlock();
-			byte[] lastBlockHash = blockHashCalculator.CalculateBlockHash(lastBlock);
 
-			return CreateBlock(currentProof, lastBlockHash);
+			return CreateBlock(currentProof, lastBlock.Hash);
 		}
 
 		public Block CreateBlock(int currentProof, byte[] previousHash)
